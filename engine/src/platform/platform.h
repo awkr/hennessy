@@ -2,7 +2,7 @@
 
 #include "defines.h"
 
-namespace platform {
+namespace hn::platform {
 
 struct State {
   void *pState = nullptr; // internal state
@@ -14,11 +14,11 @@ void terminate(State *state);
 
 bool poll_events(State *state);
 
-void *allocate(u64 size, bool aligned);
-void  free(void *block, bool aligned);
-void *zero_memory(void *block, u64 size);
-void *copy_memory(void *dst, const void *src, u64 size);
-void *set_memory(void *dst, i32 value, u64 size);
+void *allocate(u64 size, bool aligned = false);
+void  free(void *block, bool aligned = false);
+void *memory_zero(void *block, u64 size);
+void *memory_copy(void *dst, const void *src, u64 size);
+void *memory_set(void *dst, i32 value, u64 size);
 
 void console_write(const char *message, u8 color);
 void console_write_error(const char *message, u8 color);
@@ -27,4 +27,4 @@ f64 get_system_time();
 
 void sleep(u64 ms);
 
-} // namespace platform
+} // namespace hn::platform

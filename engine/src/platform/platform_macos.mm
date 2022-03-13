@@ -19,16 +19,16 @@ struct InternalState {
 };
 
 @interface WindowDelegate : NSObject <NSWindowDelegate> {
-  platform::State *_state;
+  hn::platform::State *_state;
 }
 
-- (instancetype)initWithState:(platform::State *)state;
+- (instancetype)initWithState:(hn::platform::State *)state;
 
 @end
 
 @implementation WindowDelegate
 
-- (instancetype)initWithState:(platform::State *)state {
+- (instancetype)initWithState:(hn::platform::State *)state {
   self = [super init];
   if (self) {
     _state = state;
@@ -103,7 +103,7 @@ struct InternalState {
 
 @end
 
-namespace platform {
+namespace hn::platform {
 
 bool initialize(State *state, const char *application_name, i32 x, i32 y, u32 width, u32 height) {
   auto s        = new InternalState();
@@ -188,6 +188,20 @@ bool poll_events(State *state) {
     return true;
   }
 }
+
+void *allocate(u64 size, bool aligned) { return malloc(size); }
+
+void free(void *block, bool aligned) { ::free(block); }
+
+void *memory_zero(void *block, u64 size) { return memset(block, 0, size); }
+
+void *memory_copy(void *dst, const void *src, u64 size) { return memcpy(dst, src, size); }
+
+void *memory_set(void *dst, i32 value, u64 size) { return memset(dst, value, size); }
+
+f64 get_system_time() { return CACurrentMediaTime(); }
+
+void sleep(u64 ms) {}
 
 } // namespace platform
 

@@ -4,12 +4,20 @@ find_package(Vulkan REQUIRED FATAL_ERROR)
 
 set(HEADERS
     src/defines.h
+    src/game_types.h
+    src/entry.h
     src/core/log.h
+    src/core/application.h
+    src/core/memory.h
     src/platform/platform.h
     )
 
 set(SOURCES
-    src/platform/platform_macos.mm)
+    src/core/log.cc
+    src/core/application.cc
+    src/core/memory.cc
+    src/platform/platform_macos.mm
+    )
 
 set(Engine_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(Engine_INCLUDE_DIR ${Engine_INCLUDE_DIR} PARENT_SCOPE)
