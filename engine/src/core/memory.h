@@ -27,9 +27,9 @@ void terminate();
 
 void *allocate(u64 size, Tag tag);
 void  free(void *block, u64 size, Tag tag);
-void *memory_zero(void *block, u64 size);
-void *memory_copy(void *dst, const void *src, u64 size);
-void *memory_set(void *dst, i32 value, u64 size);
+void *zero(void *block, u64 size);
+void *copy(void *dst, const void *src, u64 size);
+void *set(void *dst, i32 value, u64 size);
 
 const char *get_memory_usage();
 

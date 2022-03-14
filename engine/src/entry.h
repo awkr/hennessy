@@ -6,7 +6,7 @@
 #include "game_types.h"
 
 // External-defined function to create a game.
-extern bool create_game(hn::Game *out_game);
+extern bool create_game(hn::Game &out_game);
 
 // The main entry point of the application.
 int main() {
@@ -14,7 +14,7 @@ int main() {
 
   // Request the game instance from the application.
   hn::Game game{};
-  if (!create_game(&game)) {
+  if (!create_game(game)) {
     return 1;
   } else if (!game.validate()) {
     return 2;

@@ -9,14 +9,18 @@ set(HEADERS
     src/core/log.h
     src/core/application.h
     src/core/memory.h
+    src/core/event.h
     src/platform/platform.h
+    src/container/darray.h
     )
 
 set(SOURCES
     src/core/log.cc
     src/core/application.cc
     src/core/memory.cc
+    src/core/event.cc
     src/platform/platform_macos.mm
+    src/container/darray.cc
     )
 
 set(Engine_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)

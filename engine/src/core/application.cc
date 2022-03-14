@@ -1,4 +1,5 @@
 #include "application.h"
+#include "event.h"
 #include "game_types.h"
 #include "log.h"
 #include "memory.h"
@@ -7,16 +8,16 @@
 namespace hn::application {
 
 struct State {
-  Game           *game;
-  bool            is_running;
-  bool            is_suspended;
-  platform::State platform;
-  u16             width;
-  u16             height;
-  f32             last_time;
+  Game           *game         = nullptr;
+  bool            is_running   = false;
+  bool            is_suspended = false;
+  platform::State platform{};
+  u16             width     = 120;
+  u16             height    = 120;
+  f32             last_time = 0;
 };
 
-static State app_state;
+static State app_state{};
 
 bool create(Game &game) {
   static bool initialized = false;
@@ -28,6 +29,10 @@ bool create(Game &game) {
 
   // Initialize subsystems.
   log::initialize();
+  if (!event::initialize()) {
+    HN_error("Event system failed to initialize. Application cannot continue.");
+    return false;
+  }
 
   app_state.is_running   = true;
   app_state.is_suspended = false;
@@ -69,6 +74,7 @@ bool run() {
     }
   }
 
+  event::terminate();
   platform::terminate(&app_state.platform);
 
   // Do some cleaning.

@@ -16,7 +16,7 @@ struct Game {
   // Game-specific game state. Created and managed by the game.
   void *state = nullptr;
 
-  bool validate() const { return initialize && update && render && on_resize; }
+  [[nodiscard]] bool validate() const { return initialize && update && render && on_resize; }
 };
 
 } // namespace hn

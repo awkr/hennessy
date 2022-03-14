@@ -191,7 +191,10 @@ bool poll_events(State *state) {
 
 void *allocate(u64 size, bool aligned) { return malloc(size); }
 
-void free(void *block, bool aligned) { ::free(block); }
+void free(void *block, bool aligned) {
+  ::free(block);
+  block = nullptr;
+}
 
 void *memory_zero(void *block, u64 size) { return memset(block, 0, size); }
 

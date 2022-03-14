@@ -44,20 +44,18 @@ void free(void *block, u64 size, Tag tag) {
   platform::free(block);
 }
 
-void *memory_zero(void *block, u64 size) { return platform::memory_zero(block, size); }
+void *zero(void *block, u64 size) { return platform::memory_zero(block, size); }
 
-void *memory_copy(void *dst, const void *src, u64 size) {
-  return platform::memory_copy(dst, src, size);
-}
+void *copy(void *dst, const void *src, u64 size) { return platform::memory_copy(dst, src, size); }
 
-void *memory_set(void *dst, i32 value, u64 size) { return platform::memory_set(dst, value, size); }
+void *set(void *dst, i32 value, u64 size) { return platform::memory_set(dst, value, size); }
 
 const char *get_memory_usage() {
   const u64 gib = 1024 * 1024 * 1024;
   const u64 mib = 1024 * 1024;
   const u64 kib = 1024;
 
-  char buffer[2048] = "System memory usage:\n";
+  char buffer[2048] = "System memory usage:";
   u64  offset       = strlen(buffer);
   for (u16 i = 0; i < TagMax; ++i) {
     char  unit[4] = "Xib";
@@ -76,7 +74,7 @@ const char *get_memory_usage() {
       unit[1] = 0;
       amount  = stats.tagged_allocations[i];
     }
-    i32 length = snprintf(buffer + offset, 2048, "  %-10s: %.2f %s\n", tag_names[i], amount, unit);
+    i32 length = snprintf(buffer + offset, 2048, "\n  %-10s: %.2f %s", tag_names[i], amount, unit);
     offset += length;
   }
   return strdup(buffer);
