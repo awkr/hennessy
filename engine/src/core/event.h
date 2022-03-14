@@ -46,65 +46,65 @@ bool fire(u16 code, void *sender, const Context &ctx);
 // System internal event code. Application should use codes beyond 255.
 enum SystemEventCode {
   // Shuts the application down on the next frame.
-  EventCodeApplicationQuit = 0x01,
+  ApplicationQuit = 0x01,
 
   /** Keyboard key pressed.
    * Context usage:
    * u16 key_code = ctx.data.u16[0];
    */
-  EventCodeKeyPressed = 0x02,
+  KeyPressed = 0x02,
 
   /** Keyboard key released.
    * Context usage:
    * u16 key_code = ctx.data.u16[0];
    */
-  EventCodeKeyReleased = 0x03,
+  KeyReleased = 0x03,
 
   /** Mouse button pressed.
    * Context usage:
    * u16 button = ctx.data.u16[0];
    */
-  EventCodeButtonPressed = 0x04,
+  ButtonPressed = 0x04,
 
   /** Mouse button released.
    * Context usage:
    * u16 button = ctx.data.u16[0];
    */
-  EventCodeButtonReleased = 0x05,
+  ButtonReleased = 0x05,
 
   /** Mouse moved.
    * Context usage:
    * u16 x = ctx.data.u16[0];
    * u16 y = ctx.data.u16[1];
    */
-  EventCodeMouseMoved = 0x06,
+  MouseMoved = 0x06,
 
   /** Mouse moved.
    * Context usage:
    * u8 z_delta = ctx.data.u8[0];
    */
-  EventCodeMouseWheel = 0x07,
+  MouseWheel = 0x07,
 
   /** Resized/resolution changed from the OS.
    * Context usage:
    * u16 width = ctx.data.u16[0];
    * u16 height = ctx.data.u16[1];
    */
-  EventCodeResized = 0x08,
+  Resized = 0x08,
 
   // Special-purpose debugging event. Context will vary over time.
-  EventCodeDebug0 = 0x10,
+  Debug0 = 0x10,
   // Special-purpose debugging event. Context will vary over time.
-  EventCodeDebug1 = 0x11,
+  Debug1 = 0x11,
   // Special-purpose debugging event. Context will vary over time.
-  EventCodeDebug2 = 0x12,
+  Debug2 = 0x12,
   // Special-purpose debugging event. Context will vary over time.
-  EventCodeDebug3 = 0x13,
+  Debug3 = 0x13,
   // Special-purpose debugging event. Context will vary over time.
-  EventCodeDebug4 = 0x14,
+  Debug4 = 0x14,
 
   // The maximum event code that can be used internally.
-  EventCodeMax = 0xFF
+  Max = 0xFF
 };
 
 } // namespace hn::event

@@ -7,6 +7,7 @@
           __LINE__, ##__VA_ARGS__);
 
 #define HN_debug(message, ...) HN_log("[D]", message, ##__VA_ARGS__)
+#define HN_info(message, ...)  HN_log("\033[1;32m[I]\033[0m", message, ##__VA_ARGS__)
 #define HN_warn(message, ...)  HN_log("\033[1;33m[W]\033[0m", message, ##__VA_ARGS__)
 #define HN_error(message, ...) HN_log("\033[1;31m[E]\033[0m", message, ##__VA_ARGS__)
 #define HN_fatal(message, ...) HN_log("\033[1;41m[F]\033[0m", message, ##__VA_ARGS__)

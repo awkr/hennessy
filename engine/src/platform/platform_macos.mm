@@ -1,3 +1,4 @@
+#include "core/input.h"
 #include "core/log.h"
 #include "platform.h"
 
@@ -9,6 +10,8 @@
 @class AppDelegate;
 @class WindowDelegate;
 @class ContentView;
+
+hn::input::Key translate_key_code(u32 key_code);
 
 struct InternalState {
   AppDelegate    *appDelegate = nullptr;
@@ -62,13 +65,47 @@ struct InternalState {
   return [CAMetalLayer class];
 }
 
+- (void)keyDown:(NSEvent *)event {
+  auto key = translate_key_code(event.keyCode);
+  hn::input::process_key(key, YES);
+}
+
 - (void)keyUp:(NSEvent *)event {
-  HN_debug("%d", event.keyCode);
-  switch (event.keyCode) {
-  case 53: { // ESC
-    break;
-  }
-  }
+  auto key = translate_key_code(event.keyCode);
+  hn::input::process_key(key, NO);
+}
+
+- (void)mouseDown:(NSEvent *)event {
+  hn::input::process_button(hn::input::ButtonLeft, true);
+}
+
+- (void)mouseUp:(NSEvent *)event {
+  hn::input::process_button(hn::input::ButtonLeft, false);
+}
+
+- (void)rightMouseDown:(NSEvent *)event {
+  hn::input::process_button(hn::input::ButtonRight, true);
+}
+
+- (void)rightMouseUp:(NSEvent *)event {
+  hn::input::process_button(hn::input::ButtonRight, false);
+}
+
+- (void)otherMouseDown:(NSEvent *)event {
+  hn::input::process_button(hn::input::ButtonMiddle, true);
+}
+
+- (void)otherMouseUp:(NSEvent *)event {
+  hn::input::process_button(hn::input::ButtonMiddle, false);
+}
+
+- (void)mouseMoved:(NSEvent *)event {
+  const auto &loc = event.locationInWindow;
+  hn::input::process_mouse_move((f32)loc.x, (f32)loc.y);
+}
+
+- (void)scrollWheel:(NSEvent *)event {
+  hn::input::process_mouse_wheel((f32)event.scrollingDeltaX, (f32)event.scrollingDeltaY);
 }
 
 @end
@@ -207,5 +244,23 @@ f64 get_system_time() { return CACurrentMediaTime(); }
 void sleep(u64 ms) {}
 
 } // namespace platform
+
+hn::input::Key translate_key_code(u32 key_code) {
+  switch (key_code) {
+  case 0: return hn::input::KeyA;
+  case 1: return hn::input::KeyS;
+  case 2: return hn::input::KeyD;
+  case 8: return hn::input::KeyC;
+  case 11: return hn::input::KeyB;
+  case 13: return hn::input::KeyW;
+  case 49: return hn::input::KeySpace;
+  case 53: return hn::input::KeyESC;
+  case 123: return hn::input::KeyLeft;
+  case 124: return hn::input::KeyRight;
+  case 125: return hn::input::KeyDown;
+  case 126: return hn::input::KeyUp;
+  default: return hn::input::KeyMax;
+  }
+}
 
 #endif

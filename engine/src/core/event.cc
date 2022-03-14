@@ -1,5 +1,6 @@
 #include "event.h"
 #include "container/darray.h"
+#include "log.h"
 #include "memory.h"
 
 namespace hn::event {
@@ -34,6 +35,7 @@ bool initialize() {
   hn::mem::zero(&state, sizeof(state));
 
   initialized = true;
+  HN_debug("Event subsystem initialized.");
   return true;
 }
 

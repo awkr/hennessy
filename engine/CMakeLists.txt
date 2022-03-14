@@ -10,6 +10,7 @@ set(HEADERS
     src/core/application.h
     src/core/memory.h
     src/core/event.h
+    src/core/input.h
     src/platform/platform.h
     src/container/darray.h
     )
@@ -19,6 +20,7 @@ set(SOURCES
     src/core/application.cc
     src/core/memory.cc
     src/core/event.cc
+    src/core/input.cc
     src/platform/platform_macos.mm
     src/container/darray.cc
     )
